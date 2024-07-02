@@ -5,8 +5,16 @@ import jwt from "jsonwebtoken";
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
-    const { userName, password } = req.body;
+    const { userName, password, confirmPassword } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    if (password !== confirmPassword) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Passwords do not match",
+      });
+    }
+
     const user = await UserModel.create({
       userName: userName,
       password: hashedPassword,
