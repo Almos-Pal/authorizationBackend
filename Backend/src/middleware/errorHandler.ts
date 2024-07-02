@@ -1,12 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-const errorHandler = (
-  err: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  console.error(err.stack);
+const errorHandler = (req: Request, res: Response, next: NextFunction) => {
   res.status(500).send("Internal Server Error!");
 };
 

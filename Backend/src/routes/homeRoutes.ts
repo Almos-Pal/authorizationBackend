@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { getHome } from "../controllers/homeController";
+import { getUserById, getUsers } from "../controllers/UserController";
+import { verifyToken, verifyRefreshToken } from "../middleware/authMiddleware";
 
 const router = Router();
 
-router.get("/", getHome);
+router.route("/").get(verifyToken, verifyRefreshToken, getUsers);
+
+router.route("/:id").get(getUserById);
 
 export default router;
