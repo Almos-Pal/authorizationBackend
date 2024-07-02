@@ -18,8 +18,7 @@ export const verifyToken = (
 ) => {
   const { ACCESS_SECRET } = process.env;
 
-  const authHeader = req.header("Authorization");
-  const token = authHeader?.split(" ")[1];
+  const token = req.cookies.jwt;
 
   if (!token) {
     return res

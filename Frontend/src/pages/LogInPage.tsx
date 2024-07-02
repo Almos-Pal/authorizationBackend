@@ -1,7 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import loginUser from "../API/loginUser";
 
 function LogInPage() {
+  const navigate = useNavigate();
+  const handleLogin = async (event) => {
+    event.preventDefault(); // Prevent the default form submission
+
+    try {
+      //   const credentials = {
+      //     email: event.target.email.value,
+      //     password: event.target.password.value,
+      //   };
+
+      const result = await loginUser("credentials");
+      console.log("asd");
+      console.log("Login successful:", result);
+      navigate("/");
+      // Optionally, redirect to another page or show a success message
+    } catch (error) {
+      console.error("Error logging in:", error);
+      // Optionally, display an error message to the user
+    }
+  };
+
   return (
     <div className="bg-gray-900 text-white min-h-screen flex items-center justify-center">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -16,7 +38,7 @@ function LogInPage() {
               id="email"
               name="email"
               className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
+              //   required
             />
           </div>
           <div className="mb-6">
@@ -28,11 +50,12 @@ function LogInPage() {
               id="password"
               name="password"
               className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
+              //   required
             />
           </div>
           <button
             type="submit"
+            onClick={handleLogin}
             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             Log In

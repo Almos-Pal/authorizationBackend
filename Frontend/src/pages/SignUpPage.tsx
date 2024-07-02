@@ -1,7 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import signUpUser from "../API/signUp";
 
 function SignUpPage() {
+  const handleSignUp = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault(); // Prevent the default form submission
+
+    try {
+      const result = await signUpUser("credentials");
+      console.log("Sign-up successful:", result);
+      // Optionally, redirect to another page or show a success message
+    } catch (error) {
+      console.error("Error signing up:", error);
+      // Optionally, display an error message to the user
+    }
+  };
+
   return (
     <div className="bg-gray-900 text-white min-h-screen flex items-center justify-center">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -48,6 +62,7 @@ function SignUpPage() {
           </div>
           <button
             type="submit"
+            onClick={handleSignUp}
             className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
           >
             Sign Up

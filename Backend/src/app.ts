@@ -7,7 +7,12 @@ import cookieParser from "cookie-parser";
 import connectDB from "./db/connectDB";
 
 const app = express();
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 connectDB();
 

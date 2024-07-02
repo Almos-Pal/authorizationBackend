@@ -7,6 +7,7 @@ import LogInPage from "./pages/LogInPage.tsx";
 import SignUpPage from "./pages/SignUpPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import ContainerLayout from "./components/Layouts/ContainerLayout.tsx";
+import LogoutPage from "./pages/LogoutPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
     element: (
       <ContainerLayout>
         <SignUpPage />
+      </ContainerLayout>
+    ),
+  },
+  {
+    path: "/logout",
+    element: (
+      <ContainerLayout>
+        <LogoutPage />
       </ContainerLayout>
     ),
   },

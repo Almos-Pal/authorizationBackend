@@ -86,3 +86,18 @@ export const loginUser = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const logoutUser = async (req: Request, res: Response) => {
+  try {
+    res.clearCookie("jwt", { httpOnly: true });
+    res.clearCookie("refreshToken", { httpOnly: true });
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    {
+      res.status(500).json({
+        status: "fail",
+        message: error,
+      });
+    }
+  }
+};
