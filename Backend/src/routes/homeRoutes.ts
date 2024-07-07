@@ -4,7 +4,7 @@ import { verifyToken, verifyRefreshToken } from "../middleware/authMiddleware";
 
 const router = Router();
 
-router.route("/").get(verifyToken, verifyRefreshToken, getUsers);
+router.route("/").get(verifyRefreshToken, verifyToken, getUsers);
 
 router.route("/:id").get(getUserById);
 

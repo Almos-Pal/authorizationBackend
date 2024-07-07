@@ -1,13 +1,16 @@
+// ContainerLayout.tsx
 import React, { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import useTokenVerification from "../../hooks/useTokenVerification";
+import useAuth from "../../hooks/useAuth";
+import { endpoints } from "../../constants/endpoints";
+import { AuthProvider } from "../../context/AuthContext ";
 
 interface ContainerLayoutProps {
   children: ReactNode;
 }
 
 function ContainerLayout({ children }: ContainerLayoutProps) {
-  const { isLoggedIn, isLoading } = useTokenVerification();
+  const { isLoggedIn, isLoading } = useAuth();
 
   return (
     <div className="bg-gray-900 text-white min-h-screen flex flex-col">
@@ -58,4 +61,10 @@ function ContainerLayout({ children }: ContainerLayoutProps) {
   );
 }
 
-export default ContainerLayout;
+export default function App({ children }: ContainerLayoutProps) {
+  return (
+    <AuthProvider authEndpoint={endpoints.users}>
+      <ContainerLayout>{children}</ContainerLayout>
+    </AuthProvider>
+  );
+}

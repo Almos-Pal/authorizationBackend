@@ -37,22 +37,20 @@ export const registerUser = async (req: Request, res: Response) => {
 export const loginUser = async (req: Request, res: Response) => {
   try {
     const {
-      JWT_COOKIE_EXPIRES_IN,
       ACCESS_SECRET,
       REFRESH_SECRET,
       REFRESH_TOKEN_EXPIRES_IN,
-
       ACCESS_TOKEN_EXPIRES_IN,
     } = process.env;
 
     const { userName, password } = req.body;
-    const user = await UserModel.findOne({ userName });
     const cookieOptions = {
       expires: new Date(
         Date.now() + parseInt(REFRESH_TOKEN_EXPIRES_IN!) * 24 * 60 * 60 * 1000
       ),
       httpOnly: true,
     };
+    const user = await UserModel.findOne({ userName });
     if (!user) {
       return res.status(401).json({
         status: "fail",
@@ -61,6 +59,7 @@ export const loginUser = async (req: Request, res: Response) => {
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
+
     if (!passwordMatch) {
       return res.status(401).json({
         status: "fail",

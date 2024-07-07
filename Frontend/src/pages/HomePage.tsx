@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import useTokenVerification from "../hooks/useTokenVerification";
+import useAuth from "../hooks/useAuth";
 
 function HomePage() {
-  const { isLoggedIn, isLoading } = useTokenVerification();
+  const { isLoggedIn, isLoading } = useAuth();
 
   return (
     <div className="bg-gray-900 text-white min-h-screen flex items-center justify-center">

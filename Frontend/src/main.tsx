@@ -8,14 +8,18 @@ import SignUpPage from "./pages/SignUpPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import ContainerLayout from "./components/Layouts/ContainerLayout.tsx";
 import LogoutPage from "./pages/LogoutPage.tsx";
+import { AuthProvider } from "./context/AuthContext .tsx";
+import { endpoints } from "./constants/endpoints.ts";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <ContainerLayout>
-        <HomePage />
-      </ContainerLayout>
+      <AuthProvider authEndpoint={endpoints.users}>
+        <ContainerLayout>
+          <HomePage />
+        </ContainerLayout>
+      </AuthProvider>
     ),
     errorElement: <NotFoundPage />,
   },

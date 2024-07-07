@@ -21,9 +21,7 @@ export const verifyToken = (
   const token = req.cookies.jwt;
 
   if (!token) {
-    return res
-      .status(401)
-      .json({ message: "Access denied, no token provided" });
+    return verifyRefreshToken(req, res, next);
   }
 
   try {
@@ -31,7 +29,7 @@ export const verifyToken = (
     req.userId = decoded.userId;
     next();
   } catch (error) {
-    res.status(401).json({ error: "Invalid token" });
+    return verifyRefreshToken(req, res, next);
   }
 };
 
@@ -41,7 +39,6 @@ export const verifyRefreshToken = (
   next: NextFunction
 ) => {
   try {
-    console.log(req.cookies);
     const { REFRESH_SECRET, ACCESS_SECRET, ACCESS_TOKEN_EXPIRES_IN } =
       process.env;
     const refreshToken = req.cookies.refreshToken;
